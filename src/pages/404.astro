@@ -1,0 +1,17 @@
+---
+import Base from '../layouts/Base.astro';
+import BackLink from '../components/BackLink.astro';
+import { site } from '../data/site';
+---
+<Base title="Page not found">
+  <main id="main" class="wrap">
+    <BackLink href="/" label={site.name} inline />
+    <h1 class="heading-1">Page not found</h1>
+    <p class="muted msg">That page doesn't exist, or it has moved. Try the <a href="/blog">blog</a> or <a href="/projects">all projects</a>.</p>
+  </main>
+</Base>
+<style>
+  .wrap { max-width: var(--width-content-narrow); margin: 0 auto; box-sizing: content-box; padding: var(--space-3xl) var(--space-2xl); }
+  .msg { margin-top: var(--space-md); }
+  @media (max-width: 639px) { .wrap { padding: var(--space-2xl) var(--space-md); } }
+</style>

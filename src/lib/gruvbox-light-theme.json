@@ -1,0 +1,22 @@
+{
+  "name": "portfolio-gruvbox-light",
+  "type": "light",
+  "colors": {
+    "editor.background": "#f9f5d7",
+    "editor.foreground": "#3c3836"
+  },
+  "tokenColors": [
+    { "settings": { "foreground": "#3c3836", "background": "#f9f5d7" } },
+    { "scope": ["comment", "punctuation.definition.comment"], "settings": { "foreground": "#69625e", "fontStyle": "italic" } },
+    { "scope": ["keyword", "keyword.control", "storage.type", "storage.modifier", "keyword.other", "variable.language.this", "variable.language.self"], "settings": { "foreground": "#9d0006" } },
+    { "scope": ["string", "string.quoted", "string.template", "punctuation.definition.string"], "settings": { "foreground": "#75710e" } },
+    { "scope": ["entity.name.type", "entity.name.class", "entity.name.struct", "entity.name.namespace", "support.type", "support.class", "storage.type.built-in", "entity.other.inherited-class", "entity.name.type.parameter"], "settings": { "foreground": "#986311" } },
+    { "scope": ["entity.name.function", "support.function", "meta.function-call entity.name.function", "variable.function"], "settings": { "foreground": "#076678" } },
+    { "scope": ["constant.numeric", "constant.language", "constant.character", "constant.other", "variable.other.constant", "support.constant"], "settings": { "foreground": "#8f3f71" } },
+    { "scope": ["keyword.control.directive", "keyword.control.import", "keyword.control.export", "keyword.control.from", "meta.preprocessor", "punctuation.definition.directive", "entity.other.attribute-name", "meta.attribute", "meta.decorator", "entity.name.function.decorator", "string.quoted.other.lt-gt.include", "entity.name.tag"], "settings": { "foreground": "#427b58" } },
+    { "scope": ["keyword.operator", "punctuation.accessor", "support.function.builtin", "support.function.builtin.python", "variable.language.special", "keyword.operator.new"], "settings": { "foreground": "#af3a03" } },
+    { "scope": ["markup.heading"], "settings": { "foreground": "#9d0006", "fontStyle": "bold" } },
+    { "scope": ["markup.italic"], "settings": { "fontStyle": "italic" } },
+    { "scope": ["markup.bold"], "settings": { "fontStyle": "bold" } }
+  ]
+}

@@ -1,0 +1,109 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { render, type CollectionEntry } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import BackLink from '../../components/BackLink.astro';
+import Icon from '../../components/Icon.astro';
+import PostMeta from '../../components/PostMeta.astro';
+import { getPosts } from '../../lib/posts';
+
+export const getStaticPaths = (async () => {
+  const posts = await getPosts(); // newest first
+  return posts.map((post, i) => ({
+    params: { slug: post.id },
+    // "Previous" is the older post, "Next" the newer one.
+    props: { post, prev: posts[i + 1], next: posts[i - 1] },
+  }));
+}) satisfies GetStaticPaths;
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+  prev?: CollectionEntry<'blog'>;
+  next?: CollectionEntry<'blog'>;
+}
+const { post, prev, next } = Astro.props;
+const { Content } = await render(post);
+---
+<Base title={post.data.title} description={post.data.description} image={post.data.cover} type="article">
+  <main id="main" class="wrap">
+    <article>
+      <BackLink href="/blog" label="Blog" />
+      <h1 class="heading-1">{post.data.title}</h1>
+      <PostMeta date={post.data.date} body={post.body} />
+      {post.data.tags.length > 0 && (
+        <ul class="tags post-tags" aria-label="Tags">{post.data.tags.map((t) => <li class="tag">{t}</li>)}</ul>
+      )}
+      {post.data.draft && <p class="draft caption">Draft: this post is hidden on the live site.</p>}
+
+      <div class="prose">
+        <Content />
+      </div>
+    </article>
+
+    {(prev || next) && (
+      <nav class="more-posts" aria-label="More posts">
+        {prev ? <a class="nav-link" href={`/blog/${prev.id}`}><Icon name="arrow-left" />Previous post</a> : <span></span>}
+        {next && <a class="nav-link" href={`/blog/${next.id}`}>Next post<Icon name="arrow-right" /></a>}
+      </nav>
+    )}
+  </main>
+</Base>
+
+<style>
+  .wrap { max-width: var(--width-content-narrow); margin: 0 auto; box-sizing: content-box; padding: var(--space-3xl) var(--space-2xl); }
+  .post-tags { margin-top: var(--space-md); }
+  .draft { margin-top: var(--space-md); color: var(--color-accent); }
+  .more-posts { margin-top: var(--space-xl); display: flex; justify-content: space-between; gap: var(--space-lg); flex-wrap: wrap; }
+  .nav-link { display: inline-flex; align-items: center; gap: var(--space-xs); font-weight: 500; text-decoration: none; }
+  @media (max-width: 639px) {
+    .wrap { padding: var(--space-2xl) var(--space-md); }
+  }
+
+  /* ---------- Post body (Markdown) ---------- */
+  .prose {
+    margin-top: var(--space-xl);
+    font-family: var(--font-serif); font-size: 18px; line-height: 1.7;
+    display: flex; flex-direction: column; gap: var(--space-md);
+  }
+  .prose :global(h2) { font-family: var(--font-sans); font-size: 28px; line-height: 1.25; font-weight: 600; letter-spacing: -0.01em; margin: var(--space-lg) 0 var(--space-sm); }
+  .prose :global(h3) { font-family: var(--font-sans); font-size: 20px; line-height: 1.3; font-weight: 600; margin: var(--space-md) 0 0; }
+  .prose :global(:is(h2, h3)) { scroll-margin-top: var(--space-2xl); }
+  @media (max-width: 639px) { .prose :global(h2) { font-size: 24px; } }
+  .prose :global(strong) { font-weight: 600; }
+  .prose :global(ul), .prose :global(ol) { padding-left: var(--space-lg); display: flex; flex-direction: column; gap: var(--space-sm); }
+  .prose :global(img) { max-width: 100%; height: auto; border-radius: var(--radius-md); }
+  .prose :global(hr) { width: 100%; border: 0; height: 1px; background: var(--color-border); margin: var(--space-md) 0; }
+
+  /* Inline code */
+  .prose :global(:not(pre) > code) {
+    font-family: var(--font-mono); font-size: 0.85em; font-weight: 500;
+    background: var(--code-background); border-radius: var(--radius-sm); padding: 1px var(--space-xs);
+  }
+  /* Code blocks: colors come from the Shiki theme in src/lib/gruvbox-light-theme.json */
+  .prose :global(pre) {
+    margin: var(--space-sm) 0; padding: var(--space-md); border-radius: var(--radius-md); overflow-x: auto;
+    font-family: var(--font-mono); font-size: 15px; line-height: 1.6; font-weight: 500;
+  }
+  .prose :global(pre code) { font-family: inherit; }
+
+  /* Math (MathJax renders SVG at build time) */
+  .prose :global(mjx-container[display='true']) { display: block; margin: var(--space-sm) 0 !important; overflow-x: auto; overflow-y: hidden; text-align: center; }
+
+  .prose :global(blockquote) { margin: var(--space-sm) 0; padding-left: var(--space-lg); border-left: 2px solid var(--color-border); font-style: italic; }
+
+  .prose :global(figure) { margin: var(--space-sm) 0; display: flex; flex-direction: column; align-items: center; gap: var(--space-sm); }
+  .prose :global(figure img) { width: 100%; }
+  .prose :global(figcaption) { font-family: var(--font-sans); font-size: 14px; line-height: 1.5; color: var(--color-muted); text-align: center; }
+
+  /* Footnotes */
+  .prose :global(sup a) { font-family: var(--font-sans); font-size: 12px; text-decoration: none; }
+  .prose :global(sup) { line-height: 0; }
+  .prose :global(.footnotes) {
+    margin-top: var(--space-xl); border-top: 1px solid var(--color-border); padding-top: var(--space-md);
+    font-size: 15px; line-height: 1.6;
+  }
+  .prose :global(.footnotes ol) { gap: var(--space-xs); }
+  .prose :global(.footnotes p) { margin: 0; }
+  .prose :global(.data-footnote-backref) { text-decoration: none; }
+  .prose :global(.footnotes .sr-only) { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
+</style>

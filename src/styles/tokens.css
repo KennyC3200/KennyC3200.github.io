@@ -1,0 +1,47 @@
+/* Design tokens, copied from the Portfolio Design System. Change a value here and it changes everywhere. */
+:root {
+  /* Color */
+  --color-background: #ffffff;
+  --color-text: #3c3836;
+  --color-muted: #7c6f64;
+  --color-accent: #82562b;
+  --color-accent-hover: #6e4925;
+  --color-on-accent: #ffffff;
+  --color-focus-ring: var(--color-accent);
+  --color-highlight: #f3e9dd;
+  --color-border: #ebdbb2;
+  --color-border-strong: #928374;
+
+  /* Code (only inside code blocks) */
+  --code-background: #f9f5d7;
+  --code-text: var(--color-text);
+  --code-comment: #69625e;
+
+  /* Type families. Inter is variable with an optical-size axis, so it picks the
+     18pt, 24pt or 28pt cut to match each size automatically. */
+  --font-sans: 'Inter Variable', 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Source Serif 4 Variable', 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, Consolas, 'SF Mono', Menlo, monospace;
+
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+  --space-2xl: 64px;
+  --space-3xl: 96px;
+
+  /* Shape */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-full: 9999px;
+  --shadow-subtle: 0 1px 2px #00000015;
+
+  /* Layout (breakpoints are written into the media queries: sm 640px, lg 1024px) */
+  --width-content-narrow: 680px;
+  --width-content-wide: 1200px;
+
+  /* Motion */
+  --ease-reveal: cubic-bezier(0.2, 0.6, 0.2, 1);
+}

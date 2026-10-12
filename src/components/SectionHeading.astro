@@ -1,0 +1,17 @@
+---
+// Landing-page section heading: the name in heading-2 with a thin rule that fades into the background.
+interface Props { title: string; id?: string }
+const { title, id } = Astro.props;
+---
+<div class="section-heading" data-reveal>
+  <h2 class="heading-2" id={id}>{title}</h2>
+  <span class="rule" aria-hidden="true"></span>
+</div>
+
+<style>
+  .section-heading { display: flex; flex-direction: column; gap: 12px; margin-bottom: var(--space-xl); }
+  .rule {
+    display: block; width: 100%; max-width: 360px; height: 1.5px;
+    background: linear-gradient(to right, var(--color-border), var(--color-background));
+  }
+</style>

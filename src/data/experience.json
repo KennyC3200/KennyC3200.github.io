@@ -1,0 +1,22 @@
+[
+  {
+    "id": "company-one",
+    "role": "Role Title",
+    "company": "Company One",
+    "url": "https://example.com",
+    "start": "2026",
+    "description": "One or two sentences on what you built and the result it had.",
+    "tags": ["C++", "Linux", "CMake"]
+  },
+  {
+    "id": "company-two",
+    "role": "Role Title",
+    "company": "Company Two",
+    "url": "https://example.com",
+    "start": "2025",
+    "end": "2026",
+    "earlierRoles": ["Earlier Role Title"],
+    "description": "One or two sentences on what you built and the result it had.",
+    "tags": ["Python", "PyTorch"]
+  }
+]

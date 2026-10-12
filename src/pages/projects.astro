@@ -1,0 +1,77 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import BackLink from '../components/BackLink.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../data/site';
+
+const projects = (await getCollection('projects')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+<Base title="All Projects" description={`Every project by ${site.name}.`}>
+  <main id="main" class="page">
+    <BackLink href="/" label={site.name} inline />
+    <h1 class="heading-1">All Projects</h1>
+
+    <div class="table" role="table" aria-label="All projects">
+      <div class="row head" role="row">
+        <div role="columnheader" class="c-name">Project</div>
+        <div role="columnheader" class="c-desc lg-only">Description</div>
+        <div role="columnheader" class="c-made lg-only">Made with</div>
+        <div role="columnheader" class="c-link sm-hide">Links</div>
+      </div>
+      {projects.map(({ data: p }) => (
+        <div class="row" role="row">
+          <div role="cell" class="c-name name">{p.name}</div>
+          <div role="cell" class="c-desc">{p.description}</div>
+          <div role="cell" class="c-made">
+            <ul class="pills" aria-label="Made with">{p.madeWith.map((t) => <li class="pill">{t}</li>)}</ul>
+          </div>
+          <div role="cell" class="c-link">
+            <div class="links">
+              {p.github && <a class="icon-btn" href={p.github} aria-label={`${p.name} source on GitHub`} title="Source on GitHub"><Icon name="github" size={20} /></a>}
+              {p.live && <a class="icon-btn" href={p.live} aria-label={`${p.name} live project`} title="Live project"><Icon name="external-link" size={20} /></a>}
+              {p.writeup && <a class="icon-btn" href={p.writeup} aria-label={`${p.name} in-depth write-up`} title="In-depth write-up"><Icon name="file-search" size={20} /></a>}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </main>
+</Base>
+
+<style>
+  .page { max-width: var(--width-content-wide); margin: 0 auto; padding: var(--space-3xl) var(--space-2xl); }
+  .table { margin-top: var(--space-2xl); }
+  .row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) minmax(0, 1.4fr) 104px;
+    grid-template-areas: 'name desc made link';
+    column-gap: var(--space-lg); row-gap: var(--space-xs); align-items: start;
+    padding: var(--space-md) 0; border-top: 1.5px solid var(--color-border);
+  }
+  .row.head { border-top: 0; padding-top: 0; font-weight: 600; }
+  .c-name { grid-area: name; } .c-desc { grid-area: desc; } .c-made { grid-area: made; } .c-link { grid-area: link; }
+  .c-name, .c-desc, .c-made, .c-link { min-width: 0; overflow-wrap: anywhere; }
+  .name { font-weight: 600; }
+
+  .pills { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+  .pill {
+    display: flex; align-items: center; border-radius: var(--radius-full);
+    background: var(--color-highlight); color: var(--color-accent);
+    font-size: 12px; line-height: 20px; font-weight: 500; padding: 2px 12px;
+  }
+
+  .links { display: flex; gap: var(--space-md); align-items: center; }
+  .icon-btn { color: var(--color-muted); display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; }
+  .icon-btn:hover { color: var(--color-accent); }
+
+  @media (max-width: 1023px) {
+    .row { grid-template-columns: minmax(0, 1fr) 104px; grid-template-areas: 'name link' 'desc link' 'made link'; row-gap: var(--space-sm); }
+    .head .lg-only { display: none; }
+  }
+  @media (max-width: 639px) {
+    .page { padding: var(--space-2xl) var(--space-md); }
+    .row { grid-template-columns: minmax(0, 1fr); grid-template-areas: 'name' 'desc' 'made' 'link'; }
+    .head .sm-hide { display: none; }
+  }
+</style>

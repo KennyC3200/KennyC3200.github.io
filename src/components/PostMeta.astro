@@ -1,0 +1,14 @@
+---
+import Icon from './Icon.astro';
+import { formatDate, readingTime } from '../lib/posts';
+interface Props { date: Date; body?: string }
+const { date, body = '' } = Astro.props;
+---
+<div class="meta caption muted">
+  <span><Icon name="calendar" /><time datetime={date.toISOString()}>{formatDate(date)}</time></span>
+  <span><Icon name="clock" />{readingTime(body)}</span>
+</div>
+<style>
+  .meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-md); margin-top: var(--space-sm); }
+  .meta span { display: inline-flex; align-items: center; gap: var(--space-xs); }
+</style>
