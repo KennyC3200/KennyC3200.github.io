@@ -107,4 +107,4 @@ One-time setup: in the repo, **Settings → Pages → Build and deployment → S
 
 ## Motion
 
-The landing page and blog index fade content up as it scrolls into view (`src/scripts/reveal.ts`). Add `data-reveal` to an element on those pages to animate it; `data-reveal="intro"` animates it on load instead. Visitors who ask their system for reduced motion see everything in place.
+Every page fades its content up on load and as it scrolls into view (`src/scripts/reveal.ts`, turned on by `<Base reveal>`). Add `data-reveal` to an element to animate it when it scrolls into view; `data-reveal="intro"` animates it on load instead, in page order. Visitors who ask their system for reduced motion see everything in place.

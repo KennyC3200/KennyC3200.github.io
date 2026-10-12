@@ -24,24 +24,24 @@ interface Props {
 const { post, prev, next } = Astro.props;
 const { Content } = await render(post);
 ---
-<Base title={post.data.title} description={post.data.description} image={post.data.cover} type="article">
+<Base title={post.data.title} description={post.data.description} image={post.data.cover} type="article" reveal>
   <main id="main" class="wrap">
     <article>
-      <BackLink href="/blog" label="Blog" />
-      <h1 class="heading-1">{post.data.title}</h1>
-      <PostMeta date={post.data.date} body={post.body} />
+      <BackLink href="/blog" label="Blog" reveal />
+      <h1 class="heading-1" data-reveal="intro">{post.data.title}</h1>
+      <PostMeta date={post.data.date} body={post.body} reveal />
       {post.data.tags.length > 0 && (
-        <ul class="tags post-tags" aria-label="Tags">{post.data.tags.map((t) => <li class="tag">{t}</li>)}</ul>
+        <ul class="tags post-tags" aria-label="Tags" data-reveal="intro">{post.data.tags.map((t) => <li class="tag">{t}</li>)}</ul>
       )}
       {post.data.draft && <p class="draft caption">Draft: this post is hidden on the live site.</p>}
 
-      <div class="prose">
+      <div class="prose" data-reveal="intro">
         <Content />
       </div>
     </article>
 
     {(prev || next) && (
-      <nav class="more-posts" aria-label="More posts">
+      <nav class="more-posts" aria-label="More posts" data-reveal>
         {prev ? <a class="nav-link" href={`/blog/${prev.id}`}><Icon name="arrow-left" />Previous post</a> : <span></span>}
         {next && <a class="nav-link" href={`/blog/${next.id}`}>Next post<Icon name="arrow-right" /></a>}
       </nav>
