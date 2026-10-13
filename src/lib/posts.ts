@@ -27,6 +27,14 @@ export function readingTime(markdown: string): string {
 /** True when public/resume.pdf exists, so résumé links never point at a missing file. */
 export const hasResume = existsSync(join(process.cwd(), 'public', 'resume.pdf'));
 
+/** True for links that leave the site (http/https), as opposed to paths like /blog/my-post. */
+export const isExternal = (href: string) => /^https?:\/\//.test(href);
+
+/** Attributes that open external links in a new tab; internal links get none. Spread onto an <a>. */
+export function newTab(href: string) {
+  return isExternal(href) ? { target: '_blank', rel: 'noopener noreferrer' } : {};
+}
+
 /** The link a project's name points to: the live project, else the code, else the write-up. */
 export function primaryLink(p: { live?: string; github?: string; writeup?: string }): string | undefined {
   return p.live ?? p.github ?? p.writeup;

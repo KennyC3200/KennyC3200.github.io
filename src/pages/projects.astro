@@ -4,12 +4,13 @@ import Base from '../layouts/Base.astro';
 import BackLink from '../components/BackLink.astro';
 import Icon from '../components/Icon.astro';
 import { site } from '../data/site';
+import { newTab } from '../lib/posts';
 
 const projects = (await getCollection('projects')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 <Base title="All Projects" description={`Every project by ${site.name}.`} reveal>
   <main id="main" class="page">
-    <BackLink href="/" label={site.name} inline reveal />
+    <BackLink href="/" label={site.name} wide reveal />
     <h1 class="heading-1" data-reveal="intro">All Projects</h1>
 
     <div class="table" role="table" aria-label="All projects">
@@ -28,9 +29,9 @@ const projects = (await getCollection('projects')).sort((a, b) => b.data.date.va
           </div>
           <div role="cell" class="c-link">
             <div class="links">
-              {p.github && <a class="icon-btn" href={p.github} aria-label={`${p.name} source on GitHub`} title="Source on GitHub"><Icon name="github" size={20} /></a>}
-              {p.live && <a class="icon-btn" href={p.live} aria-label={`${p.name} live project`} title="Live project"><Icon name="external-link" size={20} /></a>}
-              {p.writeup && <a class="icon-btn" href={p.writeup} aria-label={`${p.name} in-depth write-up`} title="In-depth write-up"><Icon name="file-search" size={20} /></a>}
+              {p.github && <a class="icon-btn" href={p.github} {...newTab(p.github)} aria-label={`${p.name} source on GitHub`} title="Source on GitHub"><Icon name="github" size={20} /></a>}
+              {p.live && <a class="icon-btn" href={p.live} {...newTab(p.live)} aria-label={`${p.name} live project`} title="Live project"><Icon name="external-link" size={20} /></a>}
+              {p.writeup && <a class="icon-btn" href={p.writeup} {...newTab(p.writeup)} aria-label={`${p.name} in-depth write-up`} title="In-depth write-up"><Icon name="file-search" size={20} /></a>}
             </div>
           </div>
         </div>

@@ -1,9 +1,10 @@
 ---
 // The single back link on secondary pages. `inline` keeps it in the page flow at every width.
+// `wide` is for 1200px pages: fixed top-left only once the window is wide enough to clear the content.
 import Icon from './Icon.astro';
-interface Props { href: string; label: string; inline?: boolean; reveal?: boolean }
-const { href, label, inline = false, reveal = false } = Astro.props;
+interface Props { href: string; label: string; inline?: boolean; wide?: boolean; reveal?: boolean }
+const { href, label, inline = false, wide = false, reveal = false } = Astro.props;
 ---
-<a class:list={['back-link', 'ui', { 'back-link--inline': inline }]} href={href} data-reveal={reveal ? 'intro' : undefined}>
+<a class:list={['back-link', 'ui', { 'back-link--inline': inline, 'back-link--wide': wide }]} href={href} data-reveal={reveal ? 'intro' : undefined}>
   <Icon name="arrow-left" />{label}
 </a>

@@ -33,8 +33,9 @@ const { Content } = await render(post);
       {post.data.tags.length > 0 && (
         <ul class="tags post-tags" aria-label="Tags" data-reveal="intro">{post.data.tags.map((t) => <li class="tag">{t}</li>)}</ul>
       )}
-      {post.data.draft && <p class="draft caption">Draft: this post is hidden on the live site.</p>}
+      {post.data.draft && <p class="draft caption" data-reveal="intro">Draft: this post is hidden on the live site.</p>}
 
+      {/* The body reveals as one block, never per paragraph. */}
       <div class="prose" data-reveal="intro">
         <Content />
       </div>

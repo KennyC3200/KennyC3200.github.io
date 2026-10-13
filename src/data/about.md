@@ -1,5 +1,3 @@
-I'm a **Computer Engineering** student at **McMaster University**. A second sentence on what you study and the kind of problems that pull you in.
+I’m a **Computer Engineering** student at **McMaster University** who loves problem-solving and learning new things. I mainly enjoy programming in C++ and Python, and I’m interested in machine learning, game development, concurrency, and financial markets.
 
-One or two sentences on what you build and why, naming your strongest project, like [Project One](#projects), and what it taught you.
-
-One line about life outside of engineering.
+Outside of coding, you’ll find me working out, playing basketball and video games, or following global markets.

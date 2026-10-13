@@ -5,7 +5,7 @@ import Icon from '../components/Icon.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import { Content as About } from '../data/about.md';
 import { site } from '../data/site';
-import { getPosts, hasResume, primaryLink } from '../lib/posts';
+import { getPosts, hasResume, isExternal, newTab, primaryLink } from '../lib/posts';
 
 const projects = (await getCollection('projects'))
   .filter((p) => p.data.featured)
@@ -23,7 +23,6 @@ const sections = [
   { id: 'projects', label: 'Projects' },
   { id: 'blog', label: 'Blog' },
 ];
-const isExternal = (href: string) => /^https?:\/\//.test(href);
 ---
 <Base reveal>
   <div class="page">
@@ -42,10 +41,10 @@ const isExternal = (href: string) => /^https?:\/\//.test(href);
       </nav>
 
       <div class="socials" data-reveal="intro">
-        <a class="icon-link" href={site.github} aria-label="GitHub"><Icon name="github" size={24} /></a>
-        <a class="icon-link" href={site.linkedin} aria-label="LinkedIn"><span class="li-icon" aria-hidden="true"></span></a>
+        <a class="icon-link" href={site.github} {...newTab(site.github)} aria-label="GitHub"><Icon name="github" size={24} /></a>
+        <a class="icon-link" href={site.linkedin} {...newTab(site.linkedin)} aria-label="LinkedIn"><span class="li-icon" aria-hidden="true"></span></a>
         <a class="icon-link" href={`mailto:${site.email}`} aria-label="Email"><Icon name="mail" size={24} /></a>
-        {hasResume && <a class="icon-link" href={site.resume} aria-label="Résumé"><Icon name="file-text" size={24} /></a>}
+        {hasResume && <a class="icon-link" href={site.resume} target="_blank" rel="noopener" aria-label="Résumé"><Icon name="file-text" size={24} /></a>}
       </div>
     </header>
 
@@ -64,7 +63,7 @@ const isExternal = (href: string) => /^https?:\/\//.test(href);
               <div class="stack">
                 <h3 class="heading-3">
                   {r.url ? (
-                    <a class="title-link with-icon" href={r.url}>{r.role} · {r.company}<Icon name="arrow-up-right" /></a>
+                    <a class="title-link with-icon" href={r.url} {...newTab(r.url)}>{r.role} · {r.company}<Icon name="arrow-up-right" /></a>
                   ) : (
                     <span>{r.role} · {r.company}</span>
                   )}
@@ -90,7 +89,7 @@ const isExternal = (href: string) => /^https?:\/\//.test(href);
                   <p class="label muted">{p.date.getUTCFullYear()}</p>
                   <h3 class="heading-3">
                     {href ? (
-                      <a class="title-link with-icon" href={href}>{p.name}{isExternal(href) && <Icon name="arrow-up-right" />}</a>
+                      <a class="title-link with-icon" href={href} {...newTab(href)}>{p.name}{isExternal(href) && <Icon name="arrow-up-right" />}</a>
                     ) : (
                       <span>{p.name}</span>
                     )}
@@ -126,7 +125,7 @@ const isExternal = (href: string) => /^https?:\/\//.test(href);
         <p class="contact-text" data-reveal>{site.contact}</p>
         <div class="contact-actions" data-reveal>
           <a class="btn-primary" href={`mailto:${site.email}`}><Icon name="mail" />Email me</a>
-          {hasResume && <a class="text-link" href={site.resume}><Icon name="file-text" />Résumé</a>}
+          {hasResume && <a class="text-link" href={site.resume} target="_blank" rel="noopener"><Icon name="file-text" />Résumé</a>}
         </div>
       </section>
 

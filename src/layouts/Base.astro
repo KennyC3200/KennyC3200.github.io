@@ -17,10 +17,11 @@ interface Props {
   /** Turn on the load and scroll reveal (see Motion in the design system). */
   reveal?: boolean;
 }
-const { title, description = site.description, image = '/images/blog-cover.svg', type = 'website', reveal = false } = Astro.props;
+const { title, description = site.description, image = '/images/og-default.png', type = 'website', reveal = false } = Astro.props;
 const fullTitle = title ? `${title} · ${site.name}` : site.name;
 const canonical = new URL(Astro.url.pathname, Astro.site);
-const ogImage = new URL(image, Astro.site);
+// LinkedIn, X and most chat apps don't show SVG previews, so an SVG (like the placeholder blog cover) falls back to the default card.
+const ogImage = new URL(image.endsWith('.svg') ? '/images/og-default.png' : image, Astro.site);
 ---
 <!doctype html>
 <html lang="en">

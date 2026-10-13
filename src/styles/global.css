@@ -100,6 +100,11 @@ mark { background: var(--color-highlight); color: var(--color-text); padding: 0 
 @media (max-width: 1023px) {
   .back-link { position: static; padding: 0; background: none; border-radius: 0; margin-bottom: var(--space-sm); display: flex; width: fit-content; }
 }
+/* Wide pages (1200px content) only clear the fixed link once the window is 1440px: the link ends ~161px from
+   the left, and the content's left edge is (window − 1200) / 2 + 64. Below that it sits above the title. */
+@media (max-width: 1439px) {
+  .back-link--wide { position: static; padding: 0; background: none; border-radius: 0; margin-bottom: var(--space-sm); display: flex; width: fit-content; }
+}
 
 /* ---------- Motion: the reveal ----------
    Only active when the page script has run (it adds .js-reveal to <html>) and
