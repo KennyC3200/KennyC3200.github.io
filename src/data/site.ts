@@ -2,7 +2,7 @@
 export const site = {
   name: 'Kenny Chen',
   role: 'Computer Engineering Student',
-  tagline: 'Programming. Machine learning. Blog.',
+  tagline: 'Programming. Machine learning. Game dev. Blog.',
   /** Shown in search results and link previews. */
   description: 'Kenny Chen — Computer Engineering student. Projects, experience and a technical blog.',
   blogIntro:
